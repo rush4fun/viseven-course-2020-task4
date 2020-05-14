@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viseven Task 3</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="app">
+        <div class="wrapper">
+            <header class="header">
+                <div class="container">
+                    <h1 class="title">Welcome to Viseven <span>imagestock</span></h1>
+                </div>
+            </header>
+            <main>
+                <div class="container">
+                    <div class="main__inner">
+                        <div v-for="image in images" class="block js-Block"
+                            v-bind:class="{ 'block--wide': image.wider(), 'block--height': image.heighter() }"
+                            v-bind:data-id="image.id" v-on:click="isIdTrue">
+                            <figure class="image">
+                                <img v-bind:src="image.src" alt="" class="js-blockImage">
+                                <figcaption class="caption">
+                                    <div class="reaction comment">
+                                        <img src="img/icon-comments.svg" alt="Comment">
+                                        <span class="count">{{ image.comments.length }}</span>
+                                    </div>
+                                    <div class="reaction dislike">
+                                        <img src="img/icon-dislike.svg" alt="Dislike">
+                                        <span class="count">{{ image.dislike }}</span>
+                                    </div>
+                                    <div class="reaction like">
+                                        <img src="img/icon-like.svg" alt="Like">
+                                        <span class="count">{{ image.like }}</span>
+                                    </div>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <img src="#" alt="" id="newImage">
+                        <label for="load-pic" class="block block--last text" id="js-loadPic">
+                            <img src="img/icon-add.svg" alt="Add" class="block__add">
+                            Add you Picture
+                            <input type="file" name="load-pic" id="load-pic" accept=".jpg, .jpeg, .png">
+                        </label>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <temp-pop-up></temp-pop-up>
+        <template id="popup-vue">
+            <div id="pop-up">
+                <div class="pop-up__inner">
+                    <div class="media">
+                        <figure class="image">
+                            <img src="img/pop_up_img.jpg" alt="Pop up image" class="js-popUpImage">
+                            <figcaption class="caption">
+                                <a href="#" class="reaction dislike js-dislike">
+                                    <img src="img/icon-dislike.svg" alt="">
+                                    <span class="count js-popUpDislikes"></span>
+                                </a>
+                                <a href="#" class="reaction like js-like">
+                                    <img src="img/icon-like.svg" alt="">
+                                    <span class="count js-popUpLikes"></span>
+                                </a>
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <div class="content">
+                        <div class="close">
+                            <button class="close__btn js-closeBtn">
+                                <img src="img/icon_close.svg" alt="close">
+                            </button>
+                        </div>
+                        <div class="comments">
+                            <h2 class="title js-popUpNumComments">Comments: </h2>
+                            <div class="comments__inner">
+                            </div>
+                            <div class="comments-add">
+                                <div class="comments-add__inner">
+                                    <input type="text" name="nickname" id="nickname"
+                                        class="text comments-add__input comments-add__nickname"
+                                        placeholder="Type your nickname here...">
+                                    <input type="text" name="review" id="review"
+                                        class="text comments-add__input comments-add__review"
+                                        placeholder="Write your comment here...">
+                                    <button class="btn js-btnAddNewComment"><img src="img/icon_send.svg"
+                                            alt="Send"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
