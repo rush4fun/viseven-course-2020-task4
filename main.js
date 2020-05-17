@@ -103,14 +103,17 @@ let imagesVue = new Vue({
     el: '#app',
     data: {
         images,
-        newImage,
+        newId: '0',
     },
     computed: {
     },
     methods: {
-
+        testing(idValue) {
+            this.newId = idValue;
+            let popUp = document.querySelector('#pop-up');
+            popUp.style.display = "grid";
+        }
     }
-
 })
 // 
 // Simple functions 
@@ -124,46 +127,7 @@ let closePopUp = function () {
 }
 // let closeBtn = document.querySelector('.js-closeBtn');
 // closeBtn.addEventListener('click', closePopUp);
-// Open Pop-up
 
-let refreshPopUp = function () {
-    let popUp = document.querySelector('#pop-up');
-    popUp.style.display = "grid";
-
-    let currentId = popUp.dataset.id;
-
-    let popUpDislikes = document.querySelector('.js-popUpDislikes');
-    popUpDislikes.innerHTML = images[currentId].dislike;
-
-    let popUpLikes = document.querySelector('.js-popUpLikes');
-    popUpLikes.innerHTML = images[currentId].like;
-
-    let popUpNumComments = document.querySelector('.js-popUpNumComments');
-    popUpNumComments.innerHTML = `Comments: ${images[currentId].comments.length}`;
-
-    images.forEach(item => {
-        if (item.id == currentId) {
-            item.addComments();
-        }
-    });
-}
-let openPopUp = function () {
-    let popUp = document.querySelector('#pop-up');
-    popUp.style.display = "grid";
-
-    let currentId = this.dataset.id;
-    popUp.dataset.id = currentId;
-    let currentImageBlock = images[currentId];
-
-    let popUpImage = document.querySelector('.js-popUpImage');
-    popUpImage.src = currentImageBlock.src;
-
-    refreshPopUp();
-}
-// let jsBlocks = document.querySelectorAll('.js-Block');
-// jsBlocks.forEach(item => {
-//     item.addEventListener('click', openPopUp);
-// })
 // 
 // Add like/dislike
 // 
@@ -234,21 +198,21 @@ let addCommentPopUp = function () {
 
 //  Add new image
 
-let addNewImage = function () {
-    var fr = new FileReader();
-    fr.onload = function (e) {
-        let templateNewImage = document.querySelector('#newImage');
-        templateNewImage.src = e.target.result;
-        templateNewImage.onload = function () {
-            let newId = images.length;
-            let newImageSrc = templateNewImage.src;
-            let newImageWidth = this.width;
-            let newImageheight = this.height;
-            let newImage = new Image(newImageSrc, newImageWidth, newImageheight, newId);
-            images.push(newImage);
-        };
-    }
-    fr.readAsDataURL(this.files[0]);
-}
+// let addNewImage = function () {
+//     var fr = new FileReader();
+//     fr.onload = function (e) {
+//         let templateNewImage = document.querySelector('#newImage');
+//         templateNewImage.src = e.target.result;
+//         templateNewImage.onload = function () {
+//             let newId = images.length;
+//             let newImageSrc = templateNewImage.src;
+//             let newImageWidth = this.width;
+//             let newImageheight = this.height;
+//             let newImage = new Image(newImageSrc, newImageWidth, newImageheight, newId);
+//             images.push(newImage);
+//         };
+//     }
+//     fr.readAsDataURL(this.files[0]);
+// }
 // let btnAddNewImage = document.querySelector('#load-pic');
 // btnAddNewImage.addEventListener('change', addNewImage);

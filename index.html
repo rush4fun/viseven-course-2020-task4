@@ -22,7 +22,7 @@
                     <div class="main__inner">
                         <div v-for="image in images" class="block js-Block"
                             v-bind:class="{ 'block--wide': image.wider(), 'block--height': image.heighter() }"
-                            v-bind:data-id="image.id" v-on:click="isIdTrue">
+                            v-bind:data-id="image.id" v-on:click="testing($event.target.offsetParent.dataset.id)">
                             <figure class="image">
                                 <img v-bind:src="image.src" alt="" class="js-blockImage">
                                 <figcaption class="caption">
@@ -42,7 +42,7 @@
                             </figure>
                         </div>
                         <img src="#" alt="" id="newImage">
-                        <label for="load-pic" class="block block--last text" id="js-loadPic">
+                        <label for="load-pic" class="block block--last text" id="js-loadPic" @input="">
                             <img src="img/icon-add.svg" alt="Add" class="block__add">
                             Add you Picture
                             <input type="file" name="load-pic" id="load-pic" accept=".jpg, .jpeg, .png">
@@ -57,15 +57,15 @@
                 <div class="pop-up__inner">
                     <div class="media">
                         <figure class="image">
-                            <img src="img/pop_up_img.jpg" alt="Pop up image" class="js-popUpImage">
+                            <img v-bind:src="images[this.newId].src" alt="Pop up image" class="js-popUpImage">
                             <figcaption class="caption">
                                 <a href="#" class="reaction dislike js-dislike">
                                     <img src="img/icon-dislike.svg" alt="">
-                                    <span class="count js-popUpDislikes"></span>
+                                    <span class="count js-popUpDislikes">{{ images[this.newId].dislike }}</span>
                                 </a>
                                 <a href="#" class="reaction like js-like">
                                     <img src="img/icon-like.svg" alt="">
-                                    <span class="count js-popUpLikes"></span>
+                                    <span class="count js-popUpLikes">{{ images[this.newId].like }}</span>
                                 </a>
                             </figcaption>
                         </figure>
