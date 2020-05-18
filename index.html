@@ -22,7 +22,7 @@
                     <div class="main__inner">
                         <div v-for="image in images" class="block js-Block"
                             v-bind:class="{ 'block--wide': image.wider(), 'block--height': image.heighter() }"
-                            v-bind:data-id="image.id" v-on:click="testing($event.target.offsetParent.dataset.id)">
+                            v-bind:data-id="image.id" v-on:click="openPopUp(image)">
                             <figure class="image">
                                 <img v-bind:src="image.src" alt="" class="js-blockImage">
                                 <figcaption class="caption">
@@ -51,34 +51,49 @@
                 </div>
             </main>
         </div>
-        <temp-pop-up></temp-pop-up>
+        <temp-pop-up v-bind:is="currentImage"></temp-pop-up>
         <template id="popup-vue">
             <div id="pop-up">
                 <div class="pop-up__inner">
                     <div class="media">
                         <figure class="image">
-                            <img v-bind:src="images[this.newId].src" alt="Pop up image" class="js-popUpImage">
+                            <img v-bind:src="currentImage.src" alt="Pop up image">
                             <figcaption class="caption">
-                                <a href="#" class="reaction dislike js-dislike">
+                                <a href="#" class="reaction dislike">
                                     <img src="img/icon-dislike.svg" alt="">
-                                    <span class="count js-popUpDislikes">{{ images[this.newId].dislike }}</span>
+                                    <span class="count js-popUpDislikes">{{ currentImage.dislike }}</span>
                                 </a>
-                                <a href="#" class="reaction like js-like">
+                                <a href="#" class="reaction like">
                                     <img src="img/icon-like.svg" alt="">
-                                    <span class="count js-popUpLikes">{{ images[this.newId].like }}</span>
+                                    <span class="count js-popUpLikes">{{ currentImage.like }}</span>
                                 </a>
                             </figcaption>
                         </figure>
                     </div>
                     <div class="content">
                         <div class="close">
-                            <button class="close__btn js-closeBtn">
+                            <button class="close__btn" v-on:click="closePopUp()">
                                 <img src="img/icon_close.svg" alt="close">
                             </button>
                         </div>
                         <div class="comments">
-                            <h2 class="title js-popUpNumComments">Comments: </h2>
+                            <h2 class="title">Comments: {{ currentImage.comments.length }}</h2>
                             <div class="comments__inner">
+                                <div class="comments__item" v-for='comment in currentImage.comments'>
+                                    <div class="comments__caption">
+                                        <p class="comments__author text">
+                                            by {{ comment.author }}
+                                        </p>
+                                        <p class="comments__date text">
+                                            {{ comment.date }}
+                                        </p>
+                                    </div>
+                                    <div class="comments__text">
+                                        <p class="text">
+                                            {{ comment.text }}
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                             <div class="comments-add">
                                 <div class="comments-add__inner">

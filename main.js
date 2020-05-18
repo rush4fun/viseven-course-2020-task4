@@ -25,39 +25,6 @@ class Image {
             }
         };
     }
-    addComments() {
-        let commentsInner = document.querySelector('.comments__inner');
-        commentsInner.innerHTML = "";
-        this.comments.forEach(item => {
-            let commentsItem = document.createElement('div');
-            commentsItem.classList.add('comments__item');
-
-            let commentsCaption = document.createElement('div');
-            commentsCaption.classList.add('comments__caption');
-            commentsItem.appendChild(commentsCaption);
-
-            let commentsAuthor = document.createElement('p');
-            commentsAuthor.classList.add('comments__author', 'text');
-            commentsAuthor.innerHTML = `by ${item.author}`;
-            commentsCaption.appendChild(commentsAuthor);
-
-            let commentsDate = document.createElement('p');
-            commentsDate.classList.add('comments__date', 'text');
-            commentsDate.innerHTML = item.date;
-            commentsCaption.appendChild(commentsDate);
-
-            let commentsText = document.createElement('div');
-            commentsText.classList.add('comments__text');
-            commentsItem.appendChild(commentsText);
-
-            let commentsReview = document.createElement('p');
-            commentsReview.classList.add('text');
-            commentsReview.innerHTML = item.text;
-            commentsText.appendChild(commentsReview);
-
-            return commentsInner.appendChild(commentsItem);;
-        })
-    }
 }
 // 
 //  Arrays of objects
@@ -88,43 +55,50 @@ let img8 = new Image("img/pic8.jpeg", 488, 275, 7);
 let images = [img1, img2, img3, img4, img5, img6, img7, img8];
 
 
-Vue.component('temp-pop-up', {
+let tempPopUp = Vue.component('temp-pop-up', {
     template: '#popup-vue',
     data: function () {
         return {
-            message: ''
+            msg: ""
         }
     },
     methods: {
-    }
 
-})
-let imagesVue = new Vue({
+    },
+});
+new Vue({
     el: '#app',
     data: {
-        images,
-        newId: '0',
+        images: images,
+        currentImage: images[0],
     },
     computed: {
     },
     methods: {
-        testing(idValue) {
-            this.newId = idValue;
+        openPopUp(value) {
+            this.currentImage = value;
             let popUp = document.querySelector('#pop-up');
             popUp.style.display = "grid";
+        },
+        closePopUp() {
+            let popUp = document.querySelector('#pop-up');
+            popUp.style.display = "none";
         }
+    },
+    components: {
+        'temp-pop-up': tempPopUp,
     }
-})
+});
 // 
 // Simple functions 
 // 
 
 // Close Pop-up
 
-let closePopUp = function () {
-    let popUp = document.querySelector('#pop-up');
-    popUp.style.display = "none";
-}
+// let closePopUp = function () {
+//     let popUp = document.querySelector('#pop-up');
+//     popUp.style.display = "none";
+// }
 // let closeBtn = document.querySelector('.js-closeBtn');
 // closeBtn.addEventListener('click', closePopUp);
 
