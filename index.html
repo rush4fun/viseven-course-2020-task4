@@ -59,11 +59,11 @@
                         <figure class="image">
                             <img v-bind:src="currentImage.src" alt="Pop up image">
                             <figcaption class="caption">
-                                <a href="#" class="reaction dislike">
+                                <a href="#" class="reaction dislike" @click.prevent="addDislike">
                                     <img src="img/icon-dislike.svg" alt="">
                                     <span class="count js-popUpDislikes">{{ currentImage.dislike }}</span>
                                 </a>
-                                <a href="#" class="reaction like">
+                                <a href="#" class="reaction like" @click.prevent="addLike">
                                     <img src="img/icon-like.svg" alt="">
                                     <span class="count js-popUpLikes">{{ currentImage.like }}</span>
                                 </a>

@@ -71,6 +71,11 @@ new Vue({
     data: {
         images: images,
         currentImage: images[0],
+        newComment: {
+            author: '',
+            nickname: '',
+            date: '',
+        },
     },
     computed: {
     },
@@ -83,51 +88,21 @@ new Vue({
         closePopUp() {
             let popUp = document.querySelector('#pop-up');
             popUp.style.display = "none";
+        },
+        addDislike() {
+            this.currentImage.dislike += 1;
+        },
+        addLike() {
+            this.currentImage.like += 1;
+        },
+        addComment() {
+
         }
     },
     components: {
         'temp-pop-up': tempPopUp,
     }
 });
-// 
-// Simple functions 
-// 
-
-// Close Pop-up
-
-// let closePopUp = function () {
-//     let popUp = document.querySelector('#pop-up');
-//     popUp.style.display = "none";
-// }
-// let closeBtn = document.querySelector('.js-closeBtn');
-// closeBtn.addEventListener('click', closePopUp);
-
-// 
-// Add like/dislike
-// 
-
-// Add like
-
-let addLike = function (event) {
-    let popUp = document.querySelector('#pop-up');
-    event.preventDefault();
-    let currentId = popUp.dataset.id;
-    images[currentId].like += 1;
-    refreshPopUp();
-}
-// let likeButton = document.querySelector('.js-like');
-// likeButton.addEventListener('click', addLike);
-// Add dislike
-let addDislike = function (event) {
-    let popUp = document.querySelector('#pop-up');
-    event.preventDefault();
-    let currentId = popUp.dataset.id;
-    images[currentId].dislike += 1;
-    refreshPopUp();
-}
-// let dislikeButton = document.querySelector('.js-dislike');
-// dislikeButton.addEventListener('click', addDislike);
-
 // Add comment
 
 let addCommentPopUp = function () {
