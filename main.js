@@ -54,7 +54,6 @@ let img8 = new Image("img/pic8.jpeg", 488, 275, 7);
 
 let images = [img1, img2, img3, img4, img5, img6, img7, img8];
 
-
 let tempPopUp = Vue.component('temp-pop-up', {
     template: '#popup-vue',
     data: function () {
@@ -96,8 +95,6 @@ let imagesVue = new Vue({
             })(),
         },
     },
-    computed: {
-    },
     methods: {
         openPopUp(value) {
             this.currentImage = value;
@@ -115,72 +112,30 @@ let imagesVue = new Vue({
             this.currentImage.like += 1;
         },
         addComment() {
-            this.currentImage.comments.push(this.newComment);
+            if (this.newComment.author != '' && this.newComment.text != '') {
+                this.currentImage.comments.push(this.newComment);
+            } else {
+                alert('Please write some text');
+            }
+        },
+        addNewImage(event) {
+            let fr = new FileReader();
+            fr.onload = function (e) {
+                let templateNewImage = document.querySelector('#newImage');
+                templateNewImage.src = e.target.result;
+                templateNewImage.onload = function () {
+                    let newId = images.length;
+                    let newImageSrc = templateNewImage.src;
+                    let newImageWidth = this.width;
+                    let newImageheight = this.height;
+                    let newImage = new Image(newImageSrc, newImageWidth, newImageheight, newId);
+                    images.push(newImage);
+                };
+            }
+            fr.readAsDataURL(event.target.files[0]);
         }
     },
     components: {
         'temp-pop-up': tempPopUp,
     }
 });
-// Add comment
-
-// let addCommentPopUp = function () {
-//     let popUp = document.querySelector('#pop-up');
-//     let currentId = popUp.dataset.id;
-//     let nickname = document.querySelector('#nickname');
-//     let review = document.querySelector('#review');
-//     event.preventDefault();
-
-//     let newDate = function () {
-//         let date = new Date();
-
-//         let day = date.getDate();
-//         if (day < 10) day = '0' + day;
-
-//         let month = date.getMonth() + 1;
-//         if (month < 10) month = '0' + month;
-
-//         let year = date.getFullYear() % 100;
-//         if (year < 10) year = '0' + year;
-
-//         let hours = date.getHours();
-//         if (hours < 10) hours = '0' + hours;
-
-//         let minutes = date.getMinutes();
-//         if (minutes < 10) minutes = '0' + minutes;
-
-//         return `${day}.${month}.${year} ${hours}:${minutes}`;
-//     }
-
-//     let newComment = {
-//         author: nickname.value,
-//         text: review.value,
-//         date: newDate(),
-//     }
-
-//     images[currentId].comments.push(newComment);
-//     refreshPopUp();
-// }
-// let btnAddNewComment = document.querySelector('.js-btnAddNewComment');
-// btnAddNewComment.addEventListener('click', addCommentPopUp);
-
-//  Add new image
-
-// let addNewImage = function () {
-//     var fr = new FileReader();
-//     fr.onload = function (e) {
-//         let templateNewImage = document.querySelector('#newImage');
-//         templateNewImage.src = e.target.result;
-//         templateNewImage.onload = function () {
-//             let newId = images.length;
-//             let newImageSrc = templateNewImage.src;
-//             let newImageWidth = this.width;
-//             let newImageheight = this.height;
-//             let newImage = new Image(newImageSrc, newImageWidth, newImageheight, newId);
-//             images.push(newImage);
-//         };
-//     }
-//     fr.readAsDataURL(this.files[0]);
-// }
-// let btnAddNewImage = document.querySelector('#load-pic');
-// btnAddNewImage.addEventListener('change', addNewImage);

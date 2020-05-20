@@ -20,11 +20,11 @@
             <main>
                 <div class="container">
                     <div class="main__inner">
-                        <div v-for="image in images" class="block js-Block"
+                        <div v-for="image in images" class="block"
                             v-bind:class="{ 'block--wide': image.wider(), 'block--height': image.heighter() }"
                             v-bind:data-id="image.id" v-on:click="openPopUp(image)">
                             <figure class="image">
-                                <img v-bind:src="image.src" alt="" class="js-blockImage">
+                                <img v-bind:src="image.src" alt="">
                                 <figcaption class="caption">
                                     <div class="reaction comment">
                                         <img src="img/icon-comments.svg" alt="Comment">
@@ -42,7 +42,7 @@
                             </figure>
                         </div>
                         <img src="#" alt="" id="newImage">
-                        <label for="load-pic" class="block block--last text" id="js-loadPic" @input="">
+                        <label for="load-pic" class="block block--last text" @input="addNewImage">
                             <img src="img/icon-add.svg" alt="Add" class="block__add">
                             Add you Picture
                             <input type="file" name="load-pic" id="load-pic" accept=".jpg, .jpeg, .png">
@@ -61,11 +61,11 @@
                             <figcaption class="caption">
                                 <a href="#" class="reaction dislike" @click.prevent="addDislike">
                                     <img src="img/icon-dislike.svg" alt="">
-                                    <span class="count js-popUpDislikes">{{ currentImage.dislike }}</span>
+                                    <span class="count">{{ currentImage.dislike }}</span>
                                 </a>
                                 <a href="#" class="reaction like" @click.prevent="addLike">
                                     <img src="img/icon-like.svg" alt="">
-                                    <span class="count js-popUpLikes">{{ currentImage.like }}</span>
+                                    <span class="count">{{ currentImage.like }}</span>
                                 </a>
                             </figcaption>
                         </figure>
@@ -103,8 +103,8 @@
                                     <input type="text" name="review" id="review"
                                         class="text comments-add__input comments-add__review"
                                         placeholder="Write your comment here..." v-model="newComment.text">
-                                    <button class="btn js-btnAddNewComment" @click="addComment"><img
-                                            src="img/icon_send.svg" alt="Send"></button>
+                                    <button class="btn" @click="addComment"><img src="img/icon_send.svg"
+                                            alt="Send"></button>
                                 </div>
                             </div>
                         </div>
