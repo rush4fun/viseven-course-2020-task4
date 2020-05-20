@@ -99,12 +99,12 @@
                                 <div class="comments-add__inner">
                                     <input type="text" name="nickname" id="nickname"
                                         class="text comments-add__input comments-add__nickname"
-                                        placeholder="Type your nickname here...">
+                                        placeholder="Type your nickname here..." v-model="newComment.author">
                                     <input type="text" name="review" id="review"
                                         class="text comments-add__input comments-add__review"
-                                        placeholder="Write your comment here...">
-                                    <button class="btn js-btnAddNewComment"><img src="img/icon_send.svg"
-                                            alt="Send"></button>
+                                        placeholder="Write your comment here..." v-model="newComment.text">
+                                    <button class="btn js-btnAddNewComment" @click="addComment"><img
+                                            src="img/icon_send.svg" alt="Send"></button>
                                 </div>
                             </div>
                         </div>

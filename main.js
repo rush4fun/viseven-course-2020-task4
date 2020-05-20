@@ -66,15 +66,34 @@ let tempPopUp = Vue.component('temp-pop-up', {
 
     },
 });
-new Vue({
+let imagesVue = new Vue({
     el: '#app',
     data: {
         images: images,
         currentImage: images[0],
         newComment: {
             author: '',
-            nickname: '',
-            date: '',
+            text: '',
+            date: (function () {
+                let date = new Date();
+
+                let day = date.getDate();
+                if (day < 10) day = '0' + day;
+
+                let month = date.getMonth() + 1;
+                if (month < 10) month = '0' + month;
+
+                let year = date.getFullYear() % 100;
+                if (year < 10) year = '0' + year;
+
+                let hours = date.getHours();
+                if (hours < 10) hours = '0' + hours;
+
+                let minutes = date.getMinutes();
+                if (minutes < 10) minutes = '0' + minutes;
+
+                return `${day}.${month}.${year} ${hours}:${minutes}`;
+            })(),
         },
     },
     computed: {
@@ -96,7 +115,7 @@ new Vue({
             this.currentImage.like += 1;
         },
         addComment() {
-
+            this.currentImage.comments.push(this.newComment);
         }
     },
     components: {
@@ -105,43 +124,43 @@ new Vue({
 });
 // Add comment
 
-let addCommentPopUp = function () {
-    let popUp = document.querySelector('#pop-up');
-    let currentId = popUp.dataset.id;
-    let nickname = document.querySelector('#nickname');
-    let review = document.querySelector('#review');
-    event.preventDefault();
+// let addCommentPopUp = function () {
+//     let popUp = document.querySelector('#pop-up');
+//     let currentId = popUp.dataset.id;
+//     let nickname = document.querySelector('#nickname');
+//     let review = document.querySelector('#review');
+//     event.preventDefault();
 
-    let newDate = function () {
-        let date = new Date();
+//     let newDate = function () {
+//         let date = new Date();
 
-        let day = date.getDate();
-        if (day < 10) day = '0' + day;
+//         let day = date.getDate();
+//         if (day < 10) day = '0' + day;
 
-        let month = date.getMonth() + 1;
-        if (month < 10) month = '0' + month;
+//         let month = date.getMonth() + 1;
+//         if (month < 10) month = '0' + month;
 
-        let year = date.getFullYear() % 100;
-        if (year < 10) year = '0' + year;
+//         let year = date.getFullYear() % 100;
+//         if (year < 10) year = '0' + year;
 
-        let hours = date.getHours();
-        if (hours < 10) hours = '0' + hours;
+//         let hours = date.getHours();
+//         if (hours < 10) hours = '0' + hours;
 
-        let minutes = date.getMinutes();
-        if (minutes < 10) minutes = '0' + minutes;
+//         let minutes = date.getMinutes();
+//         if (minutes < 10) minutes = '0' + minutes;
 
-        return `${day}.${month}.${year} ${hours}:${minutes}`;
-    }
+//         return `${day}.${month}.${year} ${hours}:${minutes}`;
+//     }
 
-    let newComment = {
-        author: nickname.value,
-        text: review.value,
-        date: newDate(),
-    }
+//     let newComment = {
+//         author: nickname.value,
+//         text: review.value,
+//         date: newDate(),
+//     }
 
-    images[currentId].comments.push(newComment);
-    refreshPopUp();
-}
+//     images[currentId].comments.push(newComment);
+//     refreshPopUp();
+// }
 // let btnAddNewComment = document.querySelector('.js-btnAddNewComment');
 // btnAddNewComment.addEventListener('click', addCommentPopUp);
 
