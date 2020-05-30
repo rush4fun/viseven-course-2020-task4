@@ -111,9 +111,18 @@ let imagesVue = new Vue({
         addLike() {
             this.currentImage.like += 1;
         },
+        addCommentAuthor() {
+            let nickname = document.querySelector('#nickname');
+            this.newComment.author = nickname.value;
+        },
+        addCommentText() {
+            let review = document.querySelector('#review');
+            this.newComment.text = review.value;
+        },
         addComment() {
             if (this.newComment.author != '' && this.newComment.text != '') {
-                this.currentImage.comments.push(this.newComment);
+            	let tempCommentObj = Object.assign({}, this.newComment);
+                images[this.currentImage.id].comments.push(tempCommentObj);
             } else {
                 alert('Please write some text');
             }
